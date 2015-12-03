@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour
+public class Player : Actor
 {
 
     public GameObject cannonHolder;
@@ -14,16 +14,17 @@ public class Player : MonoBehaviour
 
     private float fireTime = 0;
     private float fireRate = 2;
-    public float cannonForce;
 
 
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         cannon = cannonHolder.transform.GetChild(0).transform.gameObject;
     }
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         fireTime += Time.deltaTime;
         PlayerInput();
 
@@ -45,11 +46,7 @@ public class Player : MonoBehaviour
         cBall.GetComponent<Rigidbody>().velocity = BallisticVel(crossHair.transform, 30);
         Destroy(cBall, 10);
     }
-    Vector3 CalculateVelocity()
-    {
-        Vector3 dir = cannon.transform.position - (cannonHolder.transform.position).normalized * cannonForce;
-        return dir;
-    }
+
     Vector3 BallisticVel(Transform target, float angle)
     {
         Vector3 dir = target.position - cannon.transform.position + cannon.transform.localToWorldMatrix.MultiplyVector(transform.up); // get target direction 

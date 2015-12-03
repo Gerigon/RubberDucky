@@ -1,19 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement {
 
     public float moveSpeed = 10;
     public float turnSpeed = 5;
 
+    private Actor _owner;
+
 	// Use this for initialization
-	void Start ()
+    public PlayerMovement(Actor owner)
+    {
+        if (owner != null)
+        {
+            this._owner = owner;
+        }
+        else
+        {
+            Debug.LogError("No actor attached");
+        }
+    }
+
+    void Start ()
     {
 	
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	public void Update ()
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
@@ -26,12 +40,12 @@ public class PlayerMovement : MonoBehaviour {
     void Movement(float v)
     {
         Vector3 movement = new Vector3(0.0f, 0.0f, v);
-        transform.Translate(movement * moveSpeed * Time.deltaTime);
+        _owner.transform.Translate(movement * moveSpeed * Time.deltaTime);
     }
 
     void Rotation(float h)
     {
         Vector3 rotation = new Vector3(0.0f, h, 0.0f);
-        transform.Rotate(rotation * turnSpeed * Time.deltaTime);
+        _owner.transform.Rotate(rotation * turnSpeed * Time.deltaTime);
     }
 }
