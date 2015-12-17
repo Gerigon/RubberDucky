@@ -7,18 +7,27 @@ public class Player : Actor
     public GameObject cannonHolder;
     public GameObject cannonBall;
     public GameObject crossHair;
+    public GameObject sea;
 
     private GameObject cannon;
 
     private Vector3 movement;
+    private BoatCamera boatCamera;
 
     private float fireTime = 0;
     private float fireRate = 2;
+
+    public float aimSensivity;
+
+    float mouseY;
+
+
 
 
 
     protected override void Start()
     {
+        boatCamera = GetComponent<BoatCamera>();
         base.Start();
         cannon = cannonHolder.transform.GetChild(0).transform.gameObject;
     }
@@ -28,17 +37,55 @@ public class Player : Actor
         fireTime += Time.deltaTime;
         PlayerInput();
 
-        cannonHolder.transform.Rotate(Vector3.up, movement.x, Space.World);
 
     }
     void PlayerInput()
     {
         movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        /*
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray,out hit))
+        {
+            Vector3 crosshairPos = new Vector3(hit.point.x,0.1f,hit.point.z);
+
+            crossHair.transform.position = crosshairPos;
+
+        }
+        */
         if (Input.GetAxis("Fire1") > 0 && (fireTime > fireRate))
         {
             fireTime = 0;
             Fire();
         }
+
+
+        //cannonHolder.transform.LookAt(crossHair.transform);
+
+        if (Input.GetAxis("Mouse X")!= 0)
+        {
+            cannonHolder.transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * aimSensivity, Space.World);
+        }
+        if (Input.GetAxis("Mouse Y") != 0)
+        {
+            mouseY = Input.GetAxis("Mouse Y");
+            float distance = Vector3.Distance(crossHair.transform.position, cannonHolder.transform.position);
+            if (distance <= 5f)
+            {
+                mouseY = Mathf.Clamp(mouseY, 0, 1000);
+            }
+            boatCamera.offset = 10 + distance * 0.75f;
+
+                crossHair.transform.Translate(new Vector3(0, 0, mouseY), Space.Self);
+            //cannonHolder.transform.Rotate(Vector3.up, Input.GetAxis("Mouse Y"), Space.World);
+        }
+
+        /*
+            boatCamera.offset += Input.GetAxis("Mouse Y");
+
+            crossHair.transform.position += crossHair.transform.localToWorldMatrix.MultiplyVector(transform.forward) * Input.GetAxis("Mouse Y");
+    ]\]\p
+        }*/
     }
     void Fire()
     {
