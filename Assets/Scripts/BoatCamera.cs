@@ -4,6 +4,7 @@ using System.Collections;
 public class BoatCamera : MonoBehaviour {
 
     public GameObject cameraAxis;
+    public GameObject crossHair;
     private Vector3 cameraPos;
     private Quaternion tempPos;
     private Transform tempTransform;
@@ -27,7 +28,7 @@ public class BoatCamera : MonoBehaviour {
 	}
     void LateUpdate()
     {
-        Camera.main.transform.LookAt(cameraAxis.transform);
+        Camera.main.transform.LookAt((crossHair.transform.position - cameraAxis.transform.position) * 0.5f + cameraAxis.transform.position);
     }
 
 }

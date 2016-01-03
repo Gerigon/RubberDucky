@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerMovement {
 
     public float moveSpeed = 10;
-    public float turnSpeed = 20;
+    public float turnSpeed = 40;
 
     private Actor _owner;
 

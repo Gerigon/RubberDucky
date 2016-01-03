@@ -74,9 +74,14 @@ public class Player : Actor
             {
                 mouseY = Mathf.Clamp(mouseY, 0, 1000);
             }
-            boatCamera.offset = 10 + distance * 0.75f;
+            if (distance > 50)
+            {
+                mouseY = Mathf.Clamp(mouseY,-1000,0);
+            }
 
-                crossHair.transform.Translate(new Vector3(0, 0, mouseY), Space.Self);
+            boatCamera.offset = 10 + distance * 0.75f;
+            crossHair.transform.Translate(new Vector3(0, 0, mouseY), Space.Self);
+            
             //cannonHolder.transform.Rotate(Vector3.up, Input.GetAxis("Mouse Y"), Space.World);
         }
 
