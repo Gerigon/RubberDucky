@@ -3,17 +3,17 @@ using System.Collections;
 
 public class Actor : MonoBehaviour {
 
-    PlayerMovement myMovementController;
+    public MovementController myMovementController;
 
     bool inWater = false;
     LayerMask waterLayer = 4;
-    Rigidbody rb;
+    protected Rigidbody rb;
     public float buoyancy = 12.5f;
 
     // Use this for initialization
     protected virtual void Start()
     {
-        myMovementController = new PlayerMovement(this);
+        myMovementController = new MovementController(this);
         rb = GetComponent<Rigidbody>();
     }
 
@@ -21,6 +21,7 @@ public class Actor : MonoBehaviour {
     protected virtual void Update()
     {
         myMovementController.Update();
+
     }
 
     protected virtual void FixedUpdate()

@@ -42,6 +42,8 @@ public class Player : Actor
     void PlayerInput()
     {
         movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        myMovementController.Movement(movement.y);
+        myMovementController.Rotation(movement.x);
         /*
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -66,6 +68,7 @@ public class Player : Actor
         {
             cannonHolder.transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * aimSensivity, Space.World);
         }
+
         if (Input.GetAxis("Mouse Y") != 0)
         {
             mouseY = Input.GetAxis("Mouse Y");
@@ -76,11 +79,11 @@ public class Player : Actor
             }
             if (distance > 50)
             {
-                mouseY = Mathf.Clamp(mouseY,-1000,0);
+                mouseY = Mathf.Clamp(mouseY, -1000, 0);
             }
 
             boatCamera.offset = 10 + distance * 0.75f;
-            crossHair.transform.Translate(new Vector3(0, 0, mouseY), Space.Self);
+            crossHair.transform.Translate(new Vector3(0, -mouseY,0), Space.Self);
             
             //cannonHolder.transform.Rotate(Vector3.up, Input.GetAxis("Mouse Y"), Space.World);
         }
