@@ -10,17 +10,21 @@ public class EnemyMovement : Pathfinding {
 
     private Collider unitCollider = null;
 
+    private bool movingToPlayer = false;
+
     private bool isMoving = false;
 
-    private bool movingToPlayer = false;
+    private int currentWaypoint = 0;
 
     // Use this for initialization
     void Start ()
     {
         unitCollider = gameObject.GetComponent<SphereCollider>();
         controller = gameObject.GetComponent<CharacterController>();
+
         SetWaypoints();
-        FindPath(transform.position, waypointHolder[1].transform.position);
+        FindPath(transform.position, waypointHolder[0].transform.position);
+
         unitCollider.enabled = true;
     }
 
@@ -30,7 +34,6 @@ public class EnemyMovement : Pathfinding {
 
         if (Path.Count > 0 && PathType == PathfinderType.WaypointBased && movingToPlayer == false)
         {
-            StartCoroutine(MovementLoop());
             MoveMethod();
         }
         if (Path.Count > 0 && PathType == PathfinderType.GridBased)
@@ -56,14 +59,18 @@ public class EnemyMovement : Pathfinding {
             Vector3 direction = (Path[0] - transform.position).normalized;
 
             controller.SimpleMove(direction * 10F);
-            if (Vector3.Distance(transform.position - Vector3.up, Path[0]) < 1F)
+            if (Vector3.Distance(transform.position - Vector3.up, Path[0]) < 1F && PathType == PathfinderType.WaypointBased)
+            {
+                Path.RemoveAt(0);
+                NextWaypoint();
+            }
+            else if(Vector3.Distance(transform.position - Vector3.up, Path[0]) < 1F && PathType == PathfinderType.GridBased)
             {
                 Path.RemoveAt(0);
             }
         }
     }
-
-    
+    /*
     IEnumerator MovementLoop()
     {
         if (isMoving == false)
@@ -77,6 +84,19 @@ public class EnemyMovement : Pathfinding {
                 {
                     isMoving = false;
                 }
+            }
+        }
+    }*/
+
+    void NextWaypoint()
+    {
+        if (Path.Count < 1)
+        {
+            FindPath(transform.position, waypointHolder[currentWaypoint].transform.position);
+            currentWaypoint++;
+            if (currentWaypoint == waypointHolder.Length - 1)
+            {
+                currentWaypoint = 0;
             }
         }
     }

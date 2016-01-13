@@ -50,7 +50,7 @@ public class MovementController {
     public void Movement(float v)
     {
         Vector3 movement = new Vector3(0.0f, 0.0f, v);
-        _owner.transform.Translate(movement * moveSpeed * Time.deltaTime);
+        _owner.transform.Translate(-movement * moveSpeed * Time.deltaTime,Space.Self);
     }
 
     public void Rotation(float h)
