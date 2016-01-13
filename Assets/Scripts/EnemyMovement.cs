@@ -12,9 +12,9 @@ public class EnemyMovement : Pathfinding {
 
     private bool movingToPlayer = false;
 
-    private bool isMoving = false;
-
     private int currentWaypoint = 0;
+
+    private GameObject player = null;
 
     // Use this for initialization
     void Start ()
@@ -26,38 +26,28 @@ public class EnemyMovement : Pathfinding {
         FindPath(transform.position, waypointHolder[0].transform.position);
 
         unitCollider.enabled = true;
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (Path.Count > 0 && PathType == PathfinderType.WaypointBased && movingToPlayer == false)
-        {
-            MoveMethod();
-        }
-        if (Path.Count > 0 && PathType == PathfinderType.GridBased)
-        {
-            MoveMethod();
-        }
-        if(Input.GetKey(KeyCode.Space))
-        {
-            Path.Clear();
-            StopCoroutine("MovementLoop");
-            movingToPlayer = true;
-            GameObject thePlayer = GameObject.FindGameObjectWithTag("Player");
-            PathType = PathfinderType.GridBased;
-            FindPath(transform.position, thePlayer.transform.position);
-            MoveMethod();
-        }
+        MoveMethod();
     }
     
+    //moves unit based on pathfindertype
     void MoveMethod()
     {
         if (Path.Count > 0)
         {
             Vector3 direction = (Path[0] - transform.position).normalized;
-
+            
+            Quaternion newRotation = Quaternion.LookRotation(transform.position - direction, Vector3.forward);
+            newRotation.x = 0.0f;
+            newRotation.z = 0.0f;
+            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 1.1f);
+          
             controller.SimpleMove(direction * 10F);
             if (Vector3.Distance(transform.position - Vector3.up, Path[0]) < 1F && PathType == PathfinderType.WaypointBased)
             {
@@ -70,24 +60,8 @@ public class EnemyMovement : Pathfinding {
             }
         }
     }
-    /*
-    IEnumerator MovementLoop()
-    {
-        if (isMoving == false)
-        {
-            isMoving = true;
-            for (int i = 0; i < waypointHolder.Length; i++)
-            {
-                FindPath(transform.position, waypointHolder[i].transform.position);
-                yield return new WaitForSeconds(0.7f);
-                if (i == waypointHolder.Length - 1)
-                {
-                    isMoving = false;
-                }
-            }
-        }
-    }*/
 
+    //sets the next waypoint to walk to
     void NextWaypoint()
     {
         if (Path.Count < 1)
@@ -101,6 +75,7 @@ public class EnemyMovement : Pathfinding {
         }
     }
 
+    //sets waypoint route
     void SetWaypoints()
     {
         waypointHolder = new GameObject[waypointContainer.transform.childCount];
@@ -110,13 +85,23 @@ public class EnemyMovement : Pathfinding {
         }
     }
 
+    //moves to player
     void OnTriggerStay(Collider collider)
     {
         if(collider.tag == "Player")
         {
-            Vector3 thePlayer = new Vector3(collider.transform.position.x, 1, collider.transform.position.z);
             PathType = PathfinderType.GridBased;
-            FindPath(transform.position, thePlayer);
+            FindPath(transform.position, player.transform.position);
         }
     }
+
+    void OnTriggerExit(Collider collider)
+    {
+        if (collider.tag == "Player")
+        {
+            PathType = PathfinderType.WaypointBased;
+            NextWaypoint();
+        }
+    }
+
 }

@@ -106,19 +106,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eb8266deb60723c43b8dabd063a89da9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -.70703578
+      value: .70710659
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eb8266deb60723c43b8dabd063a89da9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: .0100238612
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eb8266deb60723c43b8dabd063a89da9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -.0100238658
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eb8266deb60723c43b8dabd063a89da9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: .70703578
+      value: -.707106948
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eb8266deb60723c43b8dabd063a89da9, type: 3}
       propertyPath: m_RootOrder
@@ -128,6 +128,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 57c22078af9fe5f40a7ac1dc0968b6d7, type: 2}
+    - target: {fileID: 100000, guid: eb8266deb60723c43b8dabd063a89da9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: eb8266deb60723c43b8dabd063a89da9, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: eb8266deb60723c43b8dabd063a89da9, type: 3}
@@ -410,7 +414,8 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 12059360, guid: 60a0d7d8b07fa404583dcdc024c9de84, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 60a0d7d8b07fa404583dcdc024c9de84, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &428973904 stripped
@@ -1013,7 +1018,7 @@ MonoBehaviour:
   - {fileID: 128312, guid: 1bf3b3df240f51c47bd6da419075b63d, type: 2}
   weapons:
   - {fileID: 190744, guid: a278ce70c424e2e4c999b2888d936f5d, type: 2}
-  - {fileID: 182710, guid: 4b4f83fef36a049459fb43f95837c142, type: 2}
+  - {fileID: 0}
   - {fileID: 193262, guid: 8ecebca003b75364988c85ba3a158e80, type: 2}
   - {fileID: 0}
   - {fileID: 129218, guid: 1e8b67485db0a7a4cb82672968be54c4, type: 2}
@@ -3080,7 +3085,7 @@ BoxCollider:
   m_GameObject: {fileID: 1839400348}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -3678,13 +3683,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2.49949121
-  m_Radius: 3.29092932
+  m_Height: .409999996
+  m_Radius: .930000007
   m_SlopeLimit: 45
   m_StepOffset: .300000012
   m_SkinWidth: .0799999982
   m_MinMoveDistance: .00100000005
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: .330000013, y: 0, z: .50999999}
 --- !u!65 &2147476464
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3709,7 +3714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: []
-  PathType: 0
+  PathType: 1
   JS: 0
   waypointContainer: {fileID: 1500062600}
   waypointHolder: []
@@ -3725,18 +3730,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 7.5999999
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &2147476467
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2147476459}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
