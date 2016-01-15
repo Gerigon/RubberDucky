@@ -3,10 +3,14 @@ using System.Collections;
 
 public class Duck : Actor {
 
-    
+    private EnemyAI myAIController;
+
     // Use this for initialization
     protected override void Start()
     {
+        myAIController = gameObject.AddComponent<EnemyAI>() as EnemyAI;
+        myAIController._owner = this;
+        Debug.Log(myAIController);
         base.Start();
     }
 
@@ -18,12 +22,6 @@ public class Duck : Actor {
 
     protected override void FixedUpdate()
     {
-        ReceiveHit();
-    }
-
-    public void ReceiveHit()
-    {
-        rb.AddTorque(transform.up * 10);
     }
 
 }

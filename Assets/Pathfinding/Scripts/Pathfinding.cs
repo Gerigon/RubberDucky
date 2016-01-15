@@ -10,9 +10,15 @@ public enum PathfinderType
 
 public class Pathfinding : MonoBehaviour 
 {
-    public List<Vector3> Path = new List<Vector3>();
-    public PathfinderType PathType = PathfinderType.GridBased;
+    public List<Vector3> Path;
+    public PathfinderType PathType;
 	public bool JS = false;
+
+    protected virtual void Start()
+    { 
+        Path = new List<Vector3>();
+        PathType = PathfinderType.WaypointBased;
+}
 
     public void FindPath(Vector3 startPosition, Vector3 endPosition)
     {

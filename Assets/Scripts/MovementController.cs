@@ -32,19 +32,7 @@ public class MovementController {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
     }
-
-    public void Buoyancy()
-    {
-        
-        RaycastHit hit;
-        if (Physics.Raycast(_owner.transform.position,Vector3.down,out hit))
-        {
-            Debug.Log("oyoyoyoyo");
-            _owner.transform.position = hit.transform.position;
-            Debug.DrawRay(_owner.transform.position, Vector3.up * 10, Color.green, 10f);
-        }
-        //_owner.transform.position = 
-    }
+    
 
     //movement of the player
     public void Movement(float v)
@@ -52,6 +40,14 @@ public class MovementController {
         Vector3 movement = new Vector3(0.0f, 0.0f, v);
         _owner.transform.Translate(-movement * moveSpeed * Time.deltaTime,Space.Self);
     }
+    public void Movement(Vector3 v)
+    {
+        Vector3 movement = v;
+        Debug.Log(movement);
+        _owner.transform.Translate(movement * moveSpeed * Time.deltaTime,Space.World);
+        //_owner.transform.position += movement;
+    }
+
 
     public void Rotation(float h)
     {

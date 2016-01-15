@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyMovement : Pathfinding {
+public class EnemyAI : Pathfinding {
+
+    public Duck _owner;
 
     public GameObject waypointContainer = null;
     public GameObject[] waypointHolder = null;
@@ -16,18 +18,34 @@ public class EnemyMovement : Pathfinding {
 
     private GameObject player = null;
 
+    private int lastWaypoint;
+
     // Use this for initialization
+    public EnemyAI(Duck owner)
+    {
+        if (owner != null)
+        {
+            this._owner = owner;
+        }
+        else
+        {
+            Debug.LogError("No actor attached");
+        }
+    }
+
     void Start ()
     {
+        base.Start();
         unitCollider = gameObject.GetComponent<SphereCollider>();
         controller = gameObject.GetComponent<CharacterController>();
-
+        player = GameObject.Find("Boat");
+        waypointContainer = GameObject.Find("ToySquareRoute");
         SetWaypoints();
         FindPath(transform.position, waypointHolder[0].transform.position);
 
         unitCollider.enabled = true;
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        Debug.Log(player);
     }
 
     // Update is called once per frame
@@ -39,22 +57,24 @@ public class EnemyMovement : Pathfinding {
     //moves unit based on pathfindertype
     void MoveMethod()
     {
+        Debug.Log(Path);
         if (Path.Count > 0)
         {
             Vector3 direction = (Path[0] - transform.position).normalized;
             
-            Quaternion newRotation = Quaternion.LookRotation(transform.position - direction, Vector3.forward);
-            newRotation.x = 0.0f;
-            newRotation.z = 0.0f;
-            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 1.1f);
-          
-            controller.SimpleMove(direction * 10F);
-            if (Vector3.Distance(transform.position - Vector3.up, Path[0]) < 1F && PathType == PathfinderType.WaypointBased)
+            Quaternion newRotation = Quaternion.LookRotation(Path[0] - transform.position , Vector3.up);
+            newRotation.x = newRotation.z = 0.0f;
+            Debug.Log(newRotation);
+            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 6f);
+            Debug.Log(_owner);
+            //controller.SimpleMove(direction * 10F);
+            _owner.myMovementController.Movement(direction);
+            if (Vector3.Distance(transform.position - Vector3.up, Path[0]) < 2F && PathType == PathfinderType.WaypointBased)
             {
                 Path.RemoveAt(0);
                 NextWaypoint();
             }
-            else if(Vector3.Distance(transform.position - Vector3.up, Path[0]) < 1F && PathType == PathfinderType.GridBased)
+            else if(Vector3.Distance(transform.position - Vector3.up, Path[0]) < 2F && PathType == PathfinderType.GridBased)
             {
                 Path.RemoveAt(0);
             }
@@ -91,7 +111,9 @@ public class EnemyMovement : Pathfinding {
         if(collider.tag == "Player")
         {
             PathType = PathfinderType.GridBased;
+            Debug.Log(player);
             FindPath(transform.position, player.transform.position);
+
         }
     }
 
