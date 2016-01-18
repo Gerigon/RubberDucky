@@ -10,7 +10,6 @@ public class Duck : Actor {
     {
         myAIController = gameObject.AddComponent<EnemyAI>() as EnemyAI;
         myAIController._owner = this;
-        Debug.Log(myAIController);
         base.Start();
     }
 

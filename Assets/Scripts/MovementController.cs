@@ -38,12 +38,17 @@ public class MovementController {
     public void Movement(float v)
     {
         Vector3 movement = new Vector3(0.0f, 0.0f, v);
-        _owner.transform.Translate(-movement * moveSpeed * Time.deltaTime,Space.Self);
+        _owner.transform.Translate(movement * moveSpeed * Time.deltaTime,Space.Self);
+    }
+    public void Movement(float v, bool force)
+    {
+        Vector3 movement = new Vector3(0.0f, 0.0f, v * 10);
+        _owner.rb.AddRelativeForce(movement);
+        //_owner.transform.Translate(movement * moveSpeed * Time.deltaTime, Space.Self);
     }
     public void Movement(Vector3 v)
     {
         Vector3 movement = v;
-        Debug.Log(movement);
         _owner.transform.Translate(movement * moveSpeed * Time.deltaTime,Space.World);
         //_owner.transform.position += movement;
     }

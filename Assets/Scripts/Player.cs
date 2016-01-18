@@ -42,7 +42,7 @@ public class Player : Actor
     void PlayerInput()
     {
         movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        myMovementController.Movement(movement.y);
+        myMovementController.Movement(movement.y,true);
         myMovementController.Rotation(movement.x);
         /*
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -113,5 +113,13 @@ public class Player : Actor
         dist += h / Mathf.Tan(a); // correct for small height differences 
         // calculate the velocity magnitude 
         float vel = Mathf.Sqrt(dist * Physics.gravity.magnitude / Mathf.Sin(2 * a)); return vel * dir.normalized;
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.collider.gameObject.layer == LayerMask.NameToLayer("Inaccessible"))
+        {
+
+        }
     }
 }

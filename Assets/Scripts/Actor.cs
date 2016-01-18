@@ -7,7 +7,7 @@ public class Actor : MonoBehaviour {
 
     bool inWater = false;
     LayerMask waterLayer = 4;
-    protected Rigidbody rb;
+    public Rigidbody rb;
     public float buoyancy = 12.5f;
 
     // Use this for initialization

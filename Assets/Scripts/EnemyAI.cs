@@ -39,13 +39,12 @@ public class EnemyAI : Pathfinding {
         unitCollider = gameObject.GetComponent<SphereCollider>();
         controller = gameObject.GetComponent<CharacterController>();
         player = GameObject.Find("Boat");
-        waypointContainer = GameObject.Find("ToySquareRoute");
+        waypointContainer = GameObject.Find("island");
         SetWaypoints();
         FindPath(transform.position, waypointHolder[0].transform.position);
 
         unitCollider.enabled = true;
 
-        Debug.Log(player);
     }
 
     // Update is called once per frame
@@ -57,16 +56,13 @@ public class EnemyAI : Pathfinding {
     //moves unit based on pathfindertype
     void MoveMethod()
     {
-        Debug.Log(Path);
         if (Path.Count > 0)
         {
             Vector3 direction = (Path[0] - transform.position).normalized;
             
             Quaternion newRotation = Quaternion.LookRotation(Path[0] - transform.position , Vector3.up);
             newRotation.x = newRotation.z = 0.0f;
-            Debug.Log(newRotation);
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 6f);
-            Debug.Log(_owner);
             //controller.SimpleMove(direction * 10F);
             _owner.myMovementController.Movement(direction);
             if (Vector3.Distance(transform.position - Vector3.up, Path[0]) < 2F && PathType == PathfinderType.WaypointBased)
@@ -111,7 +107,6 @@ public class EnemyAI : Pathfinding {
         if(collider.tag == "Player")
         {
             PathType = PathfinderType.GridBased;
-            Debug.Log(player);
             FindPath(transform.position, player.transform.position);
 
         }
