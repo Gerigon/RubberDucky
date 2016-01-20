@@ -62,6 +62,7 @@ public class PartSelecterUI : MonoBehaviour {
         Vector3 position = newHull.transform.position + new Vector3(boat.transform.position.x, boat.transform.position.y, boat.transform.position.z);
         newHull.transform.Translate(position, Space.World);
         newHull.transform.SetParent(boat.transform);
+        newHull.transform.localScale = new Vector3(1, 1, 1);
         currentHullText.text = newHull.name;
     }
 
@@ -78,8 +79,9 @@ public class PartSelecterUI : MonoBehaviour {
         }
         GameObject newCabin = Instantiate(cabins[currentCabinNumber]);
         Vector3 position = newCabin.transform.position + new Vector3(boat.transform.position.x, boat.transform.position.y, boat.transform.position.z);
-        newCabin.transform.Translate(position, Space.World);
         newCabin.transform.SetParent(boat.transform);
+        newCabin.transform.Translate(position, Space.World);
+        newCabin.transform.localScale = new Vector3(1, 1, 1);
         currentCabinText.text = newCabin.name;
     }
 
@@ -98,6 +100,7 @@ public class PartSelecterUI : MonoBehaviour {
         Vector3 position = newWeapon.transform.position + new Vector3(boat.transform.position.x, boat.transform.position.y, boat.transform.position.z);
         newWeapon.transform.Translate(position, Space.World);
         newWeapon.transform.SetParent(boat.transform);
+        newWeapon.transform.localScale = new Vector3(1, 1, 1);
         currentWeaponText.text = newWeapon.name;
     }
 }
