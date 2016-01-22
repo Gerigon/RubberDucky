@@ -8,6 +8,7 @@ public class Duck : Actor {
     // Use this for initialization
     protected override void Start()
     {
+        health = 10;
         myAIController = gameObject.AddComponent<EnemyAI>() as EnemyAI;
         myAIController._owner = this;
         base.Start();

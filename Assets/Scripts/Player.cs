@@ -29,6 +29,7 @@ public class Player : Actor
     {
         boatCamera = GetComponent<BoatCamera>();
         base.Start();
+        health = 50;
         cannon = cannonHolder.transform.GetChild(0).transform.gameObject;
     }
     protected override void Update()
@@ -44,17 +45,14 @@ public class Player : Actor
         movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         myMovementController.Movement(movement.y,true);
         myMovementController.Rotation(movement.x);
+       
         /*
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray,out hit))
+        if (movement == Vector3.zero)
         {
-            Vector3 crosshairPos = new Vector3(hit.point.x,0.1f,hit.point.z);
-
-            crossHair.transform.position = crosshairPos;
-
+        old stuff
         }
         */
+
         if (Input.GetAxis("Fire1") > 0 && (fireTime > fireRate))
         {
             fireTime = 0;
@@ -84,16 +82,7 @@ public class Player : Actor
 
             boatCamera.offset = 10 + distance * 0.75f;
             crossHair.transform.Translate(new Vector3(0, -mouseY,0), Space.Self);
-            
-            //cannonHolder.transform.Rotate(Vector3.up, Input.GetAxis("Mouse Y"), Space.World);
         }
-
-        /*
-            boatCamera.offset += Input.GetAxis("Mouse Y");
-
-            crossHair.transform.position += crossHair.transform.localToWorldMatrix.MultiplyVector(transform.forward) * Input.GetAxis("Mouse Y");
-    ]\]\p
-        }*/
     }
     void Fire()
     {
@@ -115,11 +104,13 @@ public class Player : Actor
         float vel = Mathf.Sqrt(dist * Physics.gravity.magnitude / Mathf.Sin(2 * a)); return vel * dir.normalized;
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnCollisionStay(Collision other)
     {
-        if (other.collider.gameObject.layer == LayerMask.NameToLayer("Inaccessible"))
+        if (other.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-
+            Debug.Log("pushing");
+            Vector3 direction = (transform.position - other.transform.position).normalized;
+            rb.AddForce(direction * 2, ForceMode.VelocityChange);
         }
     }
 }
