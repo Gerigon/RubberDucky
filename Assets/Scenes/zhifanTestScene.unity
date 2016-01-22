@@ -416,6 +416,22 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 458817382}
+--- !u!1 &521074156 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 138968, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
+  m_PrefabInternal: {fileID: 2106795288}
+--- !u!64 &521074160
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 521074156}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: eb8266deb60723c43b8dabd063a89da9, type: 3}
 --- !u!1 &542417179
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,9 +706,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   health: 0
-  colors:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
   gameManager: {fileID: 0}
 --- !u!135 &762942992
 SphereCollider:
@@ -726,7 +739,7 @@ CharacterController:
   m_GameObject: {fileID: 762942989}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: .409999996
   m_Radius: .930000007
@@ -795,7 +808,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 128362, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 138968, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 128362, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9505234, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
@@ -818,9 +839,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   health: 0
-  colors:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
   gameManager: {fileID: 0}
 --- !u!143 &917873929
 CharacterController:
@@ -1653,7 +1671,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 440292, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 128362, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
       propertyPath: m_Name
@@ -1661,7 +1679,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 128362, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 138968, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 128362, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
@@ -1874,7 +1900,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!114 &1438442572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4439,7 +4465,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 6555392, guid: 147a435cc0cc90d4680459900444198b, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 103056, guid: 147a435cc0cc90d4680459900444198b, type: 2}
       propertyPath: m_Layer
@@ -4734,9 +4760,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   health: 0
-  colors:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
   gameManager: {fileID: 0}
 --- !u!143 &1862595320
 CharacterController:
@@ -4826,7 +4849,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1901278200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.07999992, z: .600000024}
+  m_LocalPosition: {x: 0, y: .819999993, z: .600000024}
   m_LocalScale: {x: 3.79777336, y: 3.79777408, z: 3.79777408}
   m_Children:
   - {fileID: 720028264}
@@ -4846,9 +4869,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   health: 0
-  colors:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
   gameManager: {fileID: 0}
   cannonHolder: {fileID: 690536798}
   cannonBall: {fileID: 164500, guid: 6a7139c7840bda34696201013ac4a366, type: 2}
@@ -4903,7 +4923,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!1 &1957905736
 GameObject:
@@ -6221,6 +6241,14 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 138968, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 128362, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9505234, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
@@ -6283,7 +6311,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   health: 0
-  colors:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
   gameManager: {fileID: 0}
