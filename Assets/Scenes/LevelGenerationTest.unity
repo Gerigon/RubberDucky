@@ -207,7 +207,8 @@ MonoBehaviour:
   - {fileID: 183874, guid: fe65f3a8bfe4d6648a0bbdc1d0c32234, type: 2}
   ducks: []
   items: []
-  pathMethods: []
+  pathMethods:
+  - {fileID: 180282, guid: 64abf9214c5a31944bdc54e7389baa04, type: 2}
   bathtubWidth: 50
   bathtubLength: 100
 --- !u!4 &366076140
