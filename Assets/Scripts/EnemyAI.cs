@@ -64,7 +64,7 @@ public class EnemyAI : Pathfinding {
             newRotation.x = newRotation.z = 0.0f;
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 6f);
             //controller.SimpleMove(direction * 10F);
-            _owner.myMovementController.Movement(direction);
+            _owner.myMovementController.Movement(direction,true);
             if (Vector3.Distance(transform.position - Vector3.up, Path[0]) < 2F && PathType == PathfinderType.WaypointBased)
             {
                 Path.RemoveAt(0);

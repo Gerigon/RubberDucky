@@ -66,6 +66,13 @@ public class MovementController {
         _owner.transform.Translate(movement * moveSpeed * Time.deltaTime,Space.World);
         //_owner.transform.position += movement;
     }
+    public void Movement(Vector3 v, bool force)
+    {
+        Vector3 movement = new Vector3(v.x, 0, v.z);
+        Debug.Log(movement);
+        _owner.rb.AddForce(movement * 3, ForceMode.Acceleration);
+        //_owner.transform.Translate(movement * moveSpeed * Time.deltaTime, Space.Self);
+    }
 
 
     public void Rotation(float h)
