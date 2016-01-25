@@ -40,7 +40,12 @@ public class WaypointPathfinder : MonoBehaviour
         instance = this;
     }
 
-	void Start () 
+	void Start ()
+    {
+        
+    }
+
+    public void IniateWaypoints()
     {
         GameObject[] M = GameObject.FindGameObjectsWithTag("Waypoint");
         Map = new WaypointNode[M.Length];
@@ -52,7 +57,7 @@ public class WaypointPathfinder : MonoBehaviour
 
         openList = new WaypointListNode[Map.Length];
         closedList = new WaypointListNode[Map.Length];
-	}
+    }
 
     void Update() 
     {
@@ -128,6 +133,7 @@ public class WaypointPathfinder : MonoBehaviour
             while (!endLoop)
             {
                 //If we have no nodes on the open list AND we are not at the end, then we got stucked! return empty list then.
+
                 if (sortedOpenList.Count == 0)
                 {
                     print("Empty Openlist, closedList");

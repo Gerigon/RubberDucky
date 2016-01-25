@@ -9,8 +9,6 @@ public class Duck : Actor {
     protected override void Start()
     {
         health = 10;
-        myAIController = gameObject.AddComponent<EnemyAI>() as EnemyAI;
-        myAIController._owner = this;
         base.Start();
     }
 
@@ -18,6 +16,16 @@ public class Duck : Actor {
     protected override void Update()
     {
         base.Update();
+    }
+
+    public void setIsland(GameObject Island)
+    {
+        
+        myAIController = gameObject.AddComponent<EnemyAI>() as EnemyAI;
+        myAIController._owner = this;
+        myAIController.waypointContainer = Island;
+        myAIController.InstantiatePath();
+
     }
 
     protected override void FixedUpdate()

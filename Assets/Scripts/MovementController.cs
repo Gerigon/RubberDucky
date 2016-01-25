@@ -4,7 +4,7 @@ using System.Collections;
 public class MovementController {
 
     public float moveSpeed = 10;
-    public float turnSpeed = 60;
+    public float turnSpeed = 100;
 
     private Actor _owner;
 
@@ -47,10 +47,11 @@ public class MovementController {
             //Debug.Log(Mathf.Abs(Vector3.Angle(_owner.rb.velocity, -_owner.transform.forward))/180);
             */
         }
-        if (_owner.name.Contains("Duck"))
+
+        if (_owner.name.Contains("duck"))
         {
             Vector3 localVel = _owner.transform.InverseTransformDirection(_owner.rb.velocity);
-            localVel.x *= 0.99f;
+            localVel.x *= 0.95f;
             _owner.rb.velocity = _owner.transform.TransformDirection(localVel);
         }
     }
@@ -75,7 +76,7 @@ public class MovementController {
     public void Movement(Vector3 v, bool force)
     {
         Vector3 movement = new Vector3(v.x, 0, v.z);
-        _owner.rb.AddForce(movement * 6, ForceMode.Acceleration);
+        _owner.rb.AddForce(movement * 3, ForceMode.Acceleration);
         //_owner.transform.Translate(movement * moveSpeed * Time.deltaTime, Space.Self);
     }
 
