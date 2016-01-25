@@ -47,6 +47,12 @@ public class MovementController {
             //Debug.Log(Mathf.Abs(Vector3.Angle(_owner.rb.velocity, -_owner.transform.forward))/180);
             */
         }
+        if (_owner.name.Contains("Duck"))
+        {
+            Vector3 localVel = _owner.transform.InverseTransformDirection(_owner.rb.velocity);
+            localVel.x *= 0.99f;
+            _owner.rb.velocity = _owner.transform.TransformDirection(localVel);
+        }
     }
     //movement of the player
     public void Movement(float v)
@@ -69,8 +75,7 @@ public class MovementController {
     public void Movement(Vector3 v, bool force)
     {
         Vector3 movement = new Vector3(v.x, 0, v.z);
-        Debug.Log(movement);
-        _owner.rb.AddForce(movement * 3, ForceMode.Acceleration);
+        _owner.rb.AddForce(movement * 6, ForceMode.Acceleration);
         //_owner.transform.Translate(movement * moveSpeed * Time.deltaTime, Space.Self);
     }
 

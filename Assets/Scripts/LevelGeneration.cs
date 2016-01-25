@@ -4,66 +4,86 @@ using System.Collections;
 
 public class LevelGeneration : MonoBehaviour {
 
+    public GameObject[] Walls;
+
     public GameObject[] islands;
     public GameObject[] ducks;
     public GameObject[] items;
 
-    public int bathtubWidth = 50;
-    public int bathtubLength = 100;
-
-    private float spawnWithinWidth = 0;
-    private float spawnWithinLength = 0;
+    public float bathtubWidth = 100;
+    public float bathtubLength = 50;
 
     public float spawnDistance = 13;
     public float spawnAmountIsland = 9;
 
-	// Use this for initialization
-	void Start ()
+    public bool drawGizmos;
+    public List<GameObject> spawnedIslandList;
+
+    // Use this for initialization
+    void Start ()
     {
-        spawnWithinWidth = (bathtubWidth / 1.3f) / 2;
-        spawnWithinLength = (bathtubLength / 1.2f) / 2;
+        List<GameObject> spawnedIslandList = new List<GameObject>();
         SpawnIslands();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-	    
+	    if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log(spawnedIslandList.Count);
+            for (int i = 0; i < spawnedIslandList.Count; i++)
+            {
+                Destroy(spawnedIslandList[i].gameObject);
+                spawnedIslandList.Remove(spawnedIslandList[i].gameObject);
+                Debug.Log("removed Item");
+            }
+            SpawnIslands();
+        }
 	}
     
     //for me to test some sizes
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawCube(transform.position, new Vector3(spawnWithinLength * 2,1,spawnWithinWidth * 2));
+        if (Application.isPlaying && drawGizmos)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawCube(transform.position, new Vector3(bathtubWidth, 1, bathtubLength));
+        }
     }
 
     void SpawnIslands()
     {
-        List<GameObject> spawnedIslandList = new List<GameObject>();
-
-        for (int i = 0; i < spawnAmountIsland; i++)
+        
+        while (spawnedIslandList.Count < spawnAmountIsland)
         {
-            if (spawnedIslandList == null)
+            GameObject spawnedIsland = Instantiate(islands[Random.Range(0, islands.Length - 1)], new Vector3(transform.position.x + Random.Range(-bathtubWidth / 3, bathtubWidth / 3), 4f, transform.position.z + Random.Range(-bathtubLength / 3, bathtubLength / 3)), Quaternion.identity) as GameObject;
+            spawnedIslandList.Add(spawnedIsland);
+            for (int i = 0; i < spawnedIslandList.Count; i++)
             {
-                GameObject spawnedIsland = Instantiate(islands[Random.Range(0, islands.Length - 1)], new Vector3(Random.Range(-spawnWithinLength, spawnWithinLength), 1, Random.Range(-spawnWithinWidth, spawnWithinWidth)), Quaternion.identity) as GameObject;
-                spawnedIslandList.Add(spawnedIsland);
-            }
-            else
-            {
-                GameObject spawnedIsland = Instantiate(islands[Random.Range(0, islands.Length - 1)], new Vector3(Random.Range(-spawnWithinLength, spawnWithinLength), 1, Random.Range(-spawnWithinWidth, spawnWithinWidth)), Quaternion.identity) as GameObject;
-                spawnedIslandList.Add(spawnedIsland);
-                for (int j = 0; j < spawnedIslandList.Count; j++)
+                if (Vector3.Distance(spawnedIsland.transform.position, spawnedIslandList[i].transform.position) < spawnDistance && spawnedIslandList[i].transform.position != spawnedIsland.transform.position)
                 {
-                    if (Vector3.Distance(spawnedIsland.transform.position, spawnedIslandList[j].transform.position) < spawnDistance && spawnedIsland.transform.position != spawnedIslandList[j].transform.position)
-                    { 
-                        spawnedIslandList.RemoveAt(j);
-                        Destroy(spawnedIsland);
-                        i--;
-                        Debug.Log("deleted 1");
-                    }
+                    spawnedIslandList.RemoveAt(i);
+                    Destroy(spawnedIsland);
+                    i--;
+                    Debug.Log("deleted 1");
                 }
             }
         }
+        //for (int i = 0; i < spawnAmountIsland; i++)
+        //{
+        //    GameObject spawnedIsland = Instantiate(islands[Random.Range(0, islands.Length - 1)], new Vector3(transform.position.x + Random.Range(-bathtubWidth/3, bathtubWidth/3), 4f, transform.position.z + Random.Range(-bathtubLength/3, bathtubLength/3)), Quaternion.identity) as GameObject;
+        //    spawnedIslandList.Add(spawnedIsland);
+        //    for (int j = 0; j < spawnedIslandList.Count; j++)
+        //    {
+        //        if (Vector3.Distance(spawnedIsland.transform.position, spawnedIslandList[j].transform.position) < spawnDistance && spawnedIslandList[j].transform.position != spawnedIsland.transform.position)
+        //        {
+        //            spawnedIslandList.RemoveAt(j);
+        //            Destroy(spawnedIsland);
+        //            i--;
+        //            Debug.Log("deleted 1");
+        //        }
+        //    }
+        //}
     }
 }

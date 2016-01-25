@@ -20,6 +20,8 @@ public class EnemyAI : Pathfinding {
 
     private int lastWaypoint;
 
+    private bool hitOnce = false;
+
     // Use this for initialization
     public EnemyAI(Duck owner)
     {
@@ -65,12 +67,12 @@ public class EnemyAI : Pathfinding {
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 6f);
             //controller.SimpleMove(direction * 10F);
             _owner.myMovementController.Movement(direction,true);
-            if (Vector3.Distance(transform.position - Vector3.up, Path[0]) < 2F && PathType == PathfinderType.WaypointBased)
+            if (Vector3.Distance(transform.position - Vector3.up, Path[0]) < 5F && PathType == PathfinderType.WaypointBased)
             {
                 Path.RemoveAt(0);
                 NextWaypoint();
             }
-            else if(Vector3.Distance(transform.position - Vector3.up, Path[0]) < 2F && PathType == PathfinderType.GridBased)
+            else if(Vector3.Distance(transform.position - Vector3.up, Path[0]) < 5F && PathType == PathfinderType.GridBased)
             {
                 Path.RemoveAt(0);
             }
@@ -100,15 +102,20 @@ public class EnemyAI : Pathfinding {
             waypointHolder[i] = waypointContainer.transform.GetChild(i).gameObject;
         }
     }
-
-    //moves to player
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.tag == "Player")
+        {
+            _owner.GetComponent<SphereCollider>().radius *= 2;
+        }
+    }
+        //moves to player
     void OnTriggerStay(Collider collider)
     {
-        if(collider.tag == "Player")
+        if(collider.tag == "Player" && hitOnce == false)
         {
             PathType = PathfinderType.GridBased;
             FindPath(transform.position, player.transform.position);
-
         }
     }
 
@@ -117,8 +124,22 @@ public class EnemyAI : Pathfinding {
         if (collider.tag == "Player")
         {
             PathType = PathfinderType.WaypointBased;
+            _owner.GetComponent<SphereCollider>().radius /= 2;
+            hitOnce = false;
             NextWaypoint();
         }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Player" && hitOnce == false)
+        {
+            Debug.Log("hit the player");
+            hitOnce = true;
+            PathType = PathfinderType.WaypointBased;
+            NextWaypoint();
+        }
+        
     }
 
 }

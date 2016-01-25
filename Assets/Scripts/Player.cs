@@ -103,14 +103,13 @@ public class Player : Actor
         // calculate the velocity magnitude 
         float vel = Mathf.Sqrt(dist * Physics.gravity.magnitude / Mathf.Sin(2 * a)); return vel * dir.normalized;
     }
-
-    void OnCollisionStay(Collision other)
+    void OnCollisionEnter(Collision other)
     {
         if (other.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             Debug.Log("pushing");
             Vector3 direction = (transform.position - other.transform.position).normalized;
-            rb.AddForce(direction * 2, ForceMode.VelocityChange);
+            rb.AddForce(direction * 10, ForceMode.VelocityChange);
         }
     }
 }
