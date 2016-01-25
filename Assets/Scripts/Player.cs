@@ -45,7 +45,7 @@ public class Player : Actor
         movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         myMovementController.Movement(movement.y,true);
         myMovementController.Rotation(movement.x);
-       
+
         /*
         if (movement == Vector3.zero)
         {
@@ -82,6 +82,11 @@ public class Player : Actor
 
             boatCamera.offset = 10 + distance * 0.75f;
             crossHair.transform.Translate(new Vector3(0, -mouseY,0), Space.Self);
+        }
+
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            rb.AddForce(Vector3.back * 20f);
         }
     }
     void Fire()
