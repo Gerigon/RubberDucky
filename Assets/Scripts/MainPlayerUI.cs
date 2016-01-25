@@ -41,4 +41,45 @@ public class MainPlayerUI : MonoBehaviour {
         newHeart.transform.SetParent(HealthPanel.transform, false);
         health.Add(newHeart);
     }
+
+    public void DecreaseBoost()
+    {
+        bool isBoosting = false;
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if (boosterSlider.value > 0)
+            {
+                isBoosting = true;
+                boosterSlider.value--;
+            }
+        }
+        if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            isBoosting = false;
+            if (isBoosting == false)
+            {
+                StartCoroutine(RegenBoost());
+            }
+        }
+    }
+
+    private IEnumerator RegenBoost()
+    {
+        while(boosterSlider.value < boosterSlider.maxValue)
+        {
+            boosterSlider.value++;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    public void SetSliderMax(float newMax)
+    {
+        float differenceMax = newMax - boosterSlider.maxValue;
+        RectTransform rt = boosterSlider.GetComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(rt.sizeDelta.x, rt.sizeDelta.y + differenceMax);
+        boosterSlider.maxValue = newMax;
+        
+        StartCoroutine(RegenBoost());
+    }
 }
