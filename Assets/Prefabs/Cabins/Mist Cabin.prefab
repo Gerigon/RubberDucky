@@ -28,7 +28,7 @@ GameObject:
   - 95: {fileID: 9582326}
   m_Layer: 0
   m_Name: Mist Cabin
-  m_TagString: Cabin
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 173534}
   m_LocalRotation: {x: -.0184655804, y: 0, z: -0, w: .999829531}
-  m_LocalPosition: {x: 0, y: .325337023, z: 0}
+  m_LocalPosition: {x: 0, y: 1.30134809, z: 0}
   m_LocalScale: {x: 1, y: .99999994, z: 1}
   m_Children: []
   m_Father: {fileID: 427314}
@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 8.49357319, y: -6.10939217, z: -20.5617199}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 407800}
@@ -83,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129458}
   m_LocalRotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
-  m_LocalPosition: {x: 0, y: .131669566, z: .150122449}
+  m_LocalPosition: {x: 0, y: .526678264, z: .600489795}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 427314}
@@ -98,7 +98,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9d3e6db9c43bfaf4f86d7e5b4656938f, type: 2}
+  - {fileID: 2100000, guid: 5a3b33963cad21244ae28edffa2995fa, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -122,7 +122,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9d3e6db9c43bfaf4f86d7e5b4656938f, type: 2}
+  - {fileID: 2100000, guid: f52186ca9faf3d54e9648f8f57b83fcb, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

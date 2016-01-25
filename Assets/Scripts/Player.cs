@@ -71,7 +71,7 @@ public class Player : Actor
         {
             mouseY = Input.GetAxis("Mouse Y");
             float distance = Vector3.Distance(crossHair.transform.position, cannonHolder.transform.position);
-            if (distance <= 5f)
+            if (distance <= 6f)
             {
                 mouseY = Mathf.Clamp(mouseY, 0, 1000);
             }
@@ -80,8 +80,8 @@ public class Player : Actor
                 mouseY = Mathf.Clamp(mouseY, -1000, 0);
             }
 
-            boatCamera.offset = 10 + distance * 0.75f;
-            crossHair.transform.Translate(new Vector3(0, -mouseY,0), Space.Self);
+            boatCamera.offset = distance;
+            crossHair.transform.Translate(new Vector3(0,0, mouseY), Space.Self);
         }
 
         if(Input.GetKey(KeyCode.LeftShift))

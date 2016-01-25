@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyAI : Pathfinding {
 
@@ -17,8 +18,6 @@ public class EnemyAI : Pathfinding {
     private int currentWaypoint = 0;
 
     private GameObject player = null;
-
-    private int lastWaypoint;
 
     private bool hitOnce = false;
 
@@ -41,18 +40,23 @@ public class EnemyAI : Pathfinding {
         unitCollider = gameObject.GetComponent<SphereCollider>();
         controller = gameObject.GetComponent<CharacterController>();
         player = GameObject.Find("Boat");
-        waypointContainer = GameObject.Find("island");
-        SetWaypoints();
-        FindPath(transform.position, waypointHolder[0].transform.position);
-
+        //waypointContainer = GameObject.Find("island");
         unitCollider.enabled = true;
 
     }
 
+    public void InstantiatePath()
+    {
+        SetWaypoints();
+        FindPath(transform.position, waypointHolder[0].transform.position);
+        currentWaypoint = Random.Range(0, waypointHolder.Length - 1);
+    }
     // Update is called once per frame
     void Update()
     {
         MoveMethod();
+
+
     }
     
     //moves unit based on pathfindertype
@@ -76,6 +80,10 @@ public class EnemyAI : Pathfinding {
             {
                 Path.RemoveAt(0);
             }
+        }
+        else
+        {
+            Path.Add(waypointHolder[Random.Range(0, waypointHolder.Length - 1)].transform.position);
         }
     }
 
@@ -123,23 +131,21 @@ public class EnemyAI : Pathfinding {
     {
         if (collider.tag == "Player")
         {
-            PathType = PathfinderType.WaypointBased;
             _owner.GetComponent<SphereCollider>().radius /= 2;
             hitOnce = false;
+            PathType = PathfinderType.WaypointBased;
             NextWaypoint();
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Player" && hitOnce == false)
+        if (collision.transform.tag == "Player")
         {
             Debug.Log("hit the player");
             hitOnce = true;
             PathType = PathfinderType.WaypointBased;
             NextWaypoint();
         }
-        
     }
-
 }

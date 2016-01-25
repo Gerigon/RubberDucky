@@ -20,7 +20,8 @@ public class WaypointNode : MonoBehaviour
 
     void Start()
     {
-        if(Application.isPlaying)
+        position = transform.position;
+        if (Application.isPlaying)
         {
             gameObject.GetComponent<Collider>().enabled = false;
         }
@@ -31,9 +32,9 @@ public class WaypointNode : MonoBehaviour
         //Empty node
     }
 
-    public WaypointNode(Vector3 p, int id, WaypointNode wpParent = null, List<WaypointNode> n = null, float f = 0, float g = 0, float h = 0)
+    public WaypointNode(int id, WaypointNode wpParent = null, List<WaypointNode> n = null, float f = 0, float g = 0, float h = 0)
     {
-        position = p;
+        position = transform.position;
         ID = id;
         parent = wpParent;
         neighbors = n;
