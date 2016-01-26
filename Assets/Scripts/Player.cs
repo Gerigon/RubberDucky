@@ -13,6 +13,7 @@ public class Player : Actor
 
     private Vector3 movement;
     private BoatCamera boatCamera;
+    private BoatParts boatParts;
 
     private float fireTime = 0;
     private float fireRate = 2;
@@ -28,6 +29,7 @@ public class Player : Actor
     protected override void Start()
     {
         boatCamera = GetComponent<BoatCamera>();
+        boatParts = GetComponent<BoatParts>();
         base.Start();
         health = 50;
         cannon = cannonHolder.transform.GetChild(0).transform.gameObject;
@@ -52,11 +54,14 @@ public class Player : Actor
         old stuff
         }
         */
+        if (boatParts.currentWeapon == Weapons.WaterPistol)
+        {
 
+        }
         if (Input.GetAxis("Fire1") > 0 && (fireTime > fireRate))
         {
             fireTime = 0;
-            Fire();
+            FireCannonBall();
         }
 
 
@@ -89,7 +94,7 @@ public class Player : Actor
             rb.AddForce(Vector3.forward * 10f);
         }
     }
-    void Fire()
+    void FireCannonBall()
     {
         GameObject cBall = Instantiate(cannonBall, cannon.transform.position + cannon.transform.localToWorldMatrix.MultiplyVector(transform.up), Quaternion.identity) as GameObject;
         cBall.GetComponent<Rigidbody>().velocity = BallisticVel(crossHair.transform, 30);
