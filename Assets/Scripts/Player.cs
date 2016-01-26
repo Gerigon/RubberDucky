@@ -86,7 +86,7 @@ public class Player : Actor
 
         if(Input.GetKey(KeyCode.LeftShift))
         {
-            rb.AddForce(Vector3.back * 20f);
+            rb.AddForce(Vector3.forward * 10f);
         }
     }
     void Fire()
