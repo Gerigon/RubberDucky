@@ -50,7 +50,7 @@ public class LevelGeneration : MonoBehaviour {
                     {
                         case "":
                             break;
-                        case "d"
+                        case "d":
                             break;
                     }
                     //Player.GetComponent<BoatParts>().SwitchEquipment(spawnedIslandList[i].GetComponent<IslandScript>().storedItem.name);

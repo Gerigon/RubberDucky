@@ -63,3 +63,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 .vs/RubberDucky/v14/.suo
+.vs/RubberDucky/v14/.suo
+*.suo
+*.suo
