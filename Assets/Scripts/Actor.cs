@@ -24,9 +24,9 @@ public class Actor : MonoBehaviour {
     protected virtual void Update()
     {
         myMovementController.Update();
-        if (health < 0)
+        if (health < 0 && this.name.Contains("duck"))
         {
-            StartCoroutine(DeathAnimation());
+            StartCoroutine(GetComponent<Duck>().DeathAnimation());
         }
         /*transform.position = new Vector3(Mathf.Clamp(transform.position.x, gameManager.Walls[3].transform.position.x + 1.5f, gameManager.Walls[1].transform.position.x - 1.5f),
                                                                  transform.position.y,
@@ -87,15 +87,5 @@ public class Actor : MonoBehaviour {
         }
     }
 
-    IEnumerator DeathAnimation()
-    {
-        for (int i = 0; i < 180; i++)
-        {
-            transform.Rotate(Vector3.up, 4);
-            transform.Translate(Vector3.down / 70);
-            GetComponent<EnemyAI>().enabled = false;
-            yield return new WaitForEndOfFrame();
-        }
-        Destroy(this.gameObject);
-    }
+    
 }
