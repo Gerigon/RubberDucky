@@ -41,8 +41,6 @@ public class BoatParts : MonoBehaviour {
         currentCabin = Cabin.StandardCabin;
         currentHull = Hull.StandardHull;
         currentWeapon = Weapons.WaterPistol;
-
-        SwitchEquipment(Hull.FastHull);
     }
 	
 	// Update is called once per frame
@@ -52,6 +50,7 @@ public class BoatParts : MonoBehaviour {
 
     public void SwitchEquipment(Cabin newCabin)
     {
+        Debug.Log("Switch");
         foreach (Transform child in transform.GetChild(1).transform)
         {
             child.gameObject.SetActive(false);
@@ -64,6 +63,7 @@ public class BoatParts : MonoBehaviour {
     }
     public void SwitchEquipment(Hull newHull)
     {
+        Debug.Log("Switch");
         foreach (Transform child in transform.GetChild(0).transform)
         {
             child.gameObject.SetActive(false);
@@ -76,6 +76,7 @@ public class BoatParts : MonoBehaviour {
     }
     public void SwitchEquipment(Weapons newWeapon)
     {
+        Debug.Log("Switch");
         foreach (Transform child in transform.GetChild(2).transform)
         {
             child.gameObject.SetActive(false);

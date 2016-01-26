@@ -3,44 +3,36 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class PopUpUI : MonoBehaviour {
-    
+
     public GameObject popUpPanel;
     public Image thisImage;
     public Image confirmationImage;
 
-    public float waitingTime = 5f;
+    //public int yesPressed = 0;
 
-    public float imageHeight = 2f;
-
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
-        confirmationImage.enabled = false;
-
         //transform.position = transform.position + Vector3.up * imageHeight;
 
         DisableCanvas();
     }
-	
-	// Update is called once per frame
-	void Update ()
-    {/*
-        if(thisCanvas.enabled == true)
-        {
 
-            //rotation
-            Vector3 v = boatCamera.transform.position - transform.position;
-            v.z = 0f;
-            transform.LookAt(boatCamera.transform.position - v);
-            transform.Rotate(0, 180, 0);
-        }*/
-
-        /* a test
-	    if(Input.GetKeyDown(KeyCode.A))
+    // Update is called once per frame
+    void Update()
+    {
+        if (confirmationImage.enabled == true)
         {
-            LoadImageTest();
-        } */
-	}
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                DisableCanvas();
+            }
+            else if (Input.GetKeyDown(KeyCode.N))
+            {
+                DisableCanvas();
+            }
+        }
+    }
 
     /// <summary>
     /// Enables the Canvas GameObeject
@@ -55,24 +47,17 @@ public class PopUpUI : MonoBehaviour {
     /// </summary>
     public void DisableCanvas()
     {
-        popUpPanel.SetActive(true);
+        confirmationImage.enabled = false;
+        popUpPanel.SetActive(false);
     }
-
-    /*
-    //test
-    public void LoadImageTest()
-    {
-        thisImage.sprite = Resources.Load<Sprite>("Cabin/Mist Cabin");
-        StartCoroutine(SwitchCabin());
-    }*/
-
+    
     /// <summary>
     /// sets the images for the boat parts
     /// </summary>
     /// <param name="thisGameObject"></param>
-    public void LoadImageBoatPart(GameObject thisGameObject)
+    public void LoadImageBoatPart(string thisGameObject)
     {
-        switch(thisGameObject.name)
+        switch (thisGameObject)
         {
             case "Super Hull":
                 thisImage.sprite = Resources.Load<Sprite>("Hull/Super Hull");
@@ -124,7 +109,7 @@ public class PopUpUI : MonoBehaviour {
                 thisImage.sprite = Resources.Load<Sprite>("Tool/Icebreaker");
                 SwitchTool();
                 break;
-            case "Water pistol":
+            case "Water Pistol":
                 thisImage.sprite = Resources.Load<Sprite>("Tool/Waterpistol");
                 SwitchTool();
                 break;
@@ -134,7 +119,7 @@ public class PopUpUI : MonoBehaviour {
                 break;
         }
     }
-    
+
     /// <summary>
     /// sets the images for the other rewards
     /// set one of the two true to get the image
@@ -143,11 +128,11 @@ public class PopUpUI : MonoBehaviour {
     /// <param name="heart"></param>
     public void LoadImageOtherReward(bool booster, bool heart)
     {
-        if(booster == true)
+        if (booster == true)
         {
             thisImage.sprite = Resources.Load<Sprite>("rewardheart");
         }
-        else if(heart == true)
+        else if (heart == true)
         {
             thisImage.sprite = Resources.Load<Sprite>("Boost Reward");
         }
@@ -157,42 +142,52 @@ public class PopUpUI : MonoBehaviour {
     {
         confirmationImage.enabled = true;
         confirmationImage.sprite = Resources.Load<Sprite>("switchcabin");
-        OnYesNoCheck();
+        //StartCoroutine(OnYesNoCheck());
     }
 
     private void SwitchHull()
     {
         confirmationImage.enabled = true;
         confirmationImage.sprite = Resources.Load<Sprite>("switchhull");
-        OnYesNoCheck();
+        //StartCoroutine(OnYesNoCheck());
     }
 
     private void SwitchTool()
     {
         confirmationImage.enabled = true;
         confirmationImage.sprite = Resources.Load<Sprite>("switchitem");
-        OnYesNoCheck();
+        //StartCoroutine(OnYesNoCheck());
+    }
+    /*
+    //if the player wants to change parts
+    public IEnumerator OnYesNoCheck()
+    {
+        //Time.timeScale = 0;
+        yield return StartCoroutine(WaitForKeyDown(KeyCode.Y, KeyCode.N));
     }
 
-    //if the player wants to change parts
-    private bool OnYesNoCheck()
+    IEnumerator WaitForKeyDown(KeyCode keyCode, KeyCode keyCode2)
     {
-        if (Input.GetKeyDown(KeyCode.Y))
+        while (!Input.GetKeyDown(keyCode) || (!Input.GetKeyDown(keyCode2)))
         {
-            //instantiate new prefab
-            DisableCanvas();
-            confirmationImage.enabled = false;
-            return true;
+            if (Input.GetKey(KeyCode.Y))
+            {
+                Debug.Log("Y pressed");
+                DisableCanvas();
+                confirmationImage.enabled = false;
+                Time.timeScale = 1;
+                yesPressed = 2;
+            }
+            else if (Input.GetKey(KeyCode.N))
+            {
+                Debug.Log("N pressed");
+                DisableCanvas();
+                confirmationImage.enabled = false;
+                Time.timeScale = 1;
+                yesPressed = 1;
+            }
+
+            yield return null;
         }
-        else if (Input.GetKeyDown(KeyCode.N))
-        {
-            DisableCanvas();
-            confirmationImage.enabled = false;
-            return false;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    }*/
 }

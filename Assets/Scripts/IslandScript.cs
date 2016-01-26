@@ -7,6 +7,8 @@ public class IslandScript : MonoBehaviour {
 
     public List<GameObject> Ducks;
     public Object storedItem;
+    public bool playerClose;
+
     // Use this for initialization
     void Start ()
     {
