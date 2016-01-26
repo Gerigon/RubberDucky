@@ -5,7 +5,7 @@ public class Player : Actor
 {
 
     public GameObject cannonHolder;
-    public GameObject cannonBall;
+    public GameObject[] cannonBall;
     public GameObject crossHair;
     public GameObject sea;
 
@@ -48,30 +48,43 @@ public class Player : Actor
         myMovementController.Movement(movement.y,true);
         myMovementController.Rotation(movement.x);
 
-        /*
-        if (movement == Vector3.zero)
-        {
-        old stuff
-        }
-        */
+        
         if (boatParts.currentWeapon == Weapons.WaterPistol)
         {
+            if (Input.GetAxis("Fire1") > 0)
+            {
+                boatParts.currentWeaponGO.transform.GetChild(4).GetComponent<ParticleSystem>().enableEmission = true;
+            }
+            else
+            {
+                boatParts.currentWeaponGO.transform.GetChild(4).GetComponent<ParticleSystem>().enableEmission = false;
+            }
 
+            if (Input.GetAxis("Mouse Y") != 0)
+            {
+                mouseY = Input.GetAxis("Mouse Y");
+                boatParts.currentWeaponGO.transform.GetChild(4).GetComponent<ParticleSystem>().transform.Rotate(Vector3.left, mouseY);
+            }
         }
-        if (Input.GetAxis("Fire1") > 0 && (fireTime > fireRate))
+        if (boatParts.currentWeapon == Weapons.BathbombCannon)
         {
-            fireTime = 0;
-            FireCannonBall();
+            if (Input.GetAxis("Fire1") > 0 && (fireTime > 1.2f))
+            {
+                fireTime = 0;
+                FireProjectile(cannonBall[0],30);
+            }
+
+            
         }
 
-
-        //cannonHolder.transform.LookAt(crossHair.transform);
-
-        if (Input.GetAxis("Mouse X")!= 0)
+        if (boatParts.currentWeapon == Weapons.HarpoonCannon)
         {
-            cannonHolder.transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * aimSensivity, Space.World);
+            if (Input.GetAxis("Fire1") > 0 && (fireTime > fireRate))
+            {
+                fireTime = 0;
+                FireProjectile(cannonBall[1],15);
+            }
         }
-
         if (Input.GetAxis("Mouse Y") != 0)
         {
             mouseY = Input.GetAxis("Mouse Y");
@@ -86,18 +99,27 @@ public class Player : Actor
             }
 
             boatCamera.offset = distance;
-            crossHair.transform.Translate(new Vector3(0,0, mouseY), Space.Self);
+            crossHair.transform.Translate(new Vector3(0, 0, mouseY), Space.Self);
+        }
+
+        if (Input.GetAxis("Mouse X")!= 0)
+        {
+            cannonHolder.transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * aimSensivity, Space.World);
         }
 
         if(Input.GetKey(KeyCode.LeftShift))
         {
-            rb.AddForce(Vector3.forward * 10f);
+            rb.AddRelativeForce(Vector3.back * 10f);
         }
     }
-    void FireCannonBall()
+    void FireWaterPistol()
     {
-        GameObject cBall = Instantiate(cannonBall, cannon.transform.position + cannon.transform.localToWorldMatrix.MultiplyVector(transform.up), Quaternion.identity) as GameObject;
-        cBall.GetComponent<Rigidbody>().velocity = BallisticVel(crossHair.transform, 30);
+
+    }
+    void FireProjectile(GameObject projectile,float angle)
+    {
+        GameObject cBall = Instantiate(projectile, cannon.transform.position + cannon.transform.localToWorldMatrix.MultiplyVector(transform.up), Quaternion.identity) as GameObject;
+        cBall.GetComponent<Rigidbody>().velocity = BallisticVel(crossHair.transform, angle);
         Destroy(cBall, 10);
     }
 
@@ -119,7 +141,7 @@ public class Player : Actor
         {
             Debug.Log("pushing");
             Vector3 direction = (transform.position - other.transform.position).normalized;
-            rb.AddForce(direction * 10, ForceMode.VelocityChange);
+            rb.AddForce(direction * 5, ForceMode.VelocityChange);
         }
     }
 }

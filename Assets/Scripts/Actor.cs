@@ -8,7 +8,7 @@ public class Actor : MonoBehaviour {
     bool inWater = false;
     LayerMask waterLayer = 4;
     public Rigidbody rb;
-    public int health;
+    public float health;
 
     public GameManager gameManager;
 
@@ -24,7 +24,7 @@ public class Actor : MonoBehaviour {
     protected virtual void Update()
     {
         myMovementController.Update();
-        if (health < 0 && this.name.Contains("duck"))
+        if (health <= 0 && this.name.Contains("duck"))
         {
             StartCoroutine(GetComponent<Duck>().DeathAnimation());
         }
@@ -69,7 +69,7 @@ public class Actor : MonoBehaviour {
         }
     }
 
-    public void ReceiveDamage(int damage)
+    public void ReceiveDamage(float damage)
     {
         health -= damage;
         StartCoroutine(DamageFlash());

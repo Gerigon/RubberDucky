@@ -35,12 +35,20 @@ public class BoatParts : MonoBehaviour {
     public Cabin currentCabin;
     public Hull currentHull;
     public Weapons currentWeapon;
+
+    public GameObject currentCabinGO;
+    public GameObject currentHullGO;
+    public GameObject currentWeaponGO;
 	// Use this for initialization
 	void Start ()
     {
         currentCabin = Cabin.StandardCabin;
         currentHull = Hull.StandardHull;
         currentWeapon = Weapons.WaterPistol;
+
+        currentCabinGO = GameObject.Find("StandardHull");
+        currentHullGO = GameObject.Find("StandardCabin");
+        currentWeaponGO = GameObject.Find("WaterPistol");
     }
 	
 	// Update is called once per frame
@@ -58,6 +66,7 @@ public class BoatParts : MonoBehaviour {
             {
                 child.gameObject.SetActive(true);
                 currentCabin = newCabin;
+                currentCabinGO = child.gameObject;
             }
         }
     }
@@ -71,6 +80,7 @@ public class BoatParts : MonoBehaviour {
             {
                 child.gameObject.SetActive(true);
                 currentHull = newHull;
+                currentHullGO = child.gameObject;
             }
         }
     }
@@ -84,6 +94,7 @@ public class BoatParts : MonoBehaviour {
             {
                 child.gameObject.SetActive(true);
                 currentWeapon = newWeapon;
+                currentWeaponGO = child.gameObject;
             }
         }
     }
