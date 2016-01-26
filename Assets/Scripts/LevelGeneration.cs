@@ -48,8 +48,8 @@ public class LevelGeneration : MonoBehaviour {
             {
                 if (spawnedIslandList[i].GetComponent<IslandScript>().Ducks.Count == 0 && spawnedIslandList[i].GetComponent<IslandScript>().storedItem != null)
                 {
-                    if (spawnedIslandList[i].GetComponent<IslandScript>().playerClose == false)
-                    {
+                    //if (spawnedIslandList[i].GetComponent<IslandScript>().playerClose == false)
+                    //{
                         spawnedIslandList[i].GetComponent<IslandScript>().playerClose = true;
                         popUpUI.LoadImageBoatPart(spawnedIslandList[i].GetComponent<IslandScript>().storedItem.name);
                         popUpUI.EnableCanvas();
@@ -64,13 +64,13 @@ public class LevelGeneration : MonoBehaviour {
                         {
                             popUpUI.DisableCanvas();
                         }
-                    }
+                    //}
                 }
             }
-            else
-            {
-                spawnedIslandList[i].GetComponent<IslandScript>().playerClose = false;
-            }
+            //else
+            //{
+            //    spawnedIslandList[i].GetComponent<IslandScript>().playerClose = false;
+            //}
         }
     }
 

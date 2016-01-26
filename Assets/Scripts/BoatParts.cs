@@ -31,6 +31,7 @@ public enum Weapons
 
 public class BoatParts : MonoBehaviour {
 
+    private GameObject owner;
 
     public Cabin currentCabin;
     public Hull currentHull;
@@ -42,6 +43,8 @@ public class BoatParts : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        owner = GameObject.Find("Boat");
+
         currentCabin = Cabin.StandardCabin;
         currentHull = Hull.StandardHull;
         currentWeapon = Weapons.WaterPistol;
@@ -49,6 +52,7 @@ public class BoatParts : MonoBehaviour {
         currentCabinGO = GameObject.Find("StandardHull");
         currentHullGO = GameObject.Find("StandardCabin");
         currentWeaponGO = GameObject.Find("WaterPistol");
+        SwitchEquipment(Weapons.BathbombCannon);
     }
 	
 	// Update is called once per frame
@@ -95,6 +99,10 @@ public class BoatParts : MonoBehaviour {
                 child.gameObject.SetActive(true);
                 currentWeapon = newWeapon;
                 currentWeaponGO = child.gameObject;
+                owner.GetComponent<BoatCamera>().cameraAxis = currentWeaponGO.transform.GetChild(4).gameObject;
+                owner.GetComponent<Player>().crossHair = owner.GetComponent<BoatCamera>().crossHair = currentWeaponGO.transform.GetChild(3).gameObject;
+                 
+                
             }
         }
     }

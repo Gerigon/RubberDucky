@@ -20,6 +20,9 @@ public class Player : Actor
 
     public float aimSensivity;
 
+    public GameObject playerUIGO;
+    private MainPlayerUI playerUI;
+
     float mouseY;
 
 
@@ -28,6 +31,7 @@ public class Player : Actor
 
     protected override void Start()
     {
+        playerUI = playerUIGO.GetComponent<MainPlayerUI>();
         boatCamera = GetComponent<BoatCamera>();
         boatParts = GetComponent<BoatParts>();
         base.Start();
@@ -53,17 +57,17 @@ public class Player : Actor
         {
             if (Input.GetAxis("Fire1") > 0)
             {
-                boatParts.currentWeaponGO.transform.GetChild(4).GetComponent<ParticleSystem>().enableEmission = true;
+                boatParts.currentWeaponGO.transform.GetChild(2).GetComponent<ParticleSystem>().enableEmission = true;
             }
             else
             {
-                boatParts.currentWeaponGO.transform.GetChild(4).GetComponent<ParticleSystem>().enableEmission = false;
+                boatParts.currentWeaponGO.transform.GetChild(2).GetComponent<ParticleSystem>().enableEmission = false;
             }
 
             if (Input.GetAxis("Mouse Y") != 0)
             {
                 mouseY = Input.GetAxis("Mouse Y");
-                boatParts.currentWeaponGO.transform.GetChild(4).GetComponent<ParticleSystem>().transform.Rotate(Vector3.left, mouseY);
+                boatParts.currentWeaponGO.transform.GetChild(2).GetComponent<ParticleSystem>().transform.Rotate(Vector3.left, mouseY);
             }
         }
         if (boatParts.currentWeapon == Weapons.BathbombCannon)
@@ -99,7 +103,7 @@ public class Player : Actor
             }
 
             boatCamera.offset = distance;
-            crossHair.transform.Translate(new Vector3(0, 0, mouseY), Space.Self);
+            crossHair.transform.Translate(new Vector3(0, 0, -mouseY), Space.Self);
         }
 
         if (Input.GetAxis("Mouse X")!= 0)
@@ -118,7 +122,7 @@ public class Player : Actor
     }
     void FireProjectile(GameObject projectile,float angle)
     {
-        GameObject cBall = Instantiate(projectile, cannon.transform.position + cannon.transform.localToWorldMatrix.MultiplyVector(transform.up), Quaternion.identity) as GameObject;
+        GameObject cBall = Instantiate(projectile, cannon.transform.position + cannon.transform.localToWorldMatrix.MultiplyVector(transform.up),Quaternion.LookRotation(transform.position + transform.worldToLocalMatrix.MultiplyVector(Vector3.forward * 2),transform.position)) as GameObject;
         cBall.GetComponent<Rigidbody>().velocity = BallisticVel(crossHair.transform, angle);
         Destroy(cBall, 10);
     }
@@ -140,8 +144,11 @@ public class Player : Actor
         if (other.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             Debug.Log("pushing");
+            StartCoroutine(playerUI.HealthDown());
             Vector3 direction = (transform.position - other.transform.position).normalized;
             rb.AddForce(direction * 5, ForceMode.VelocityChange);
+
+            
         }
     }
 }

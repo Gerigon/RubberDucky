@@ -18,9 +18,14 @@ public class MainPlayerUI : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        HealthUp();
-        HealthUp();
-        HealthUp();
+        for (int i = 0; i < 15; i++)
+        {
+            HealthUp();
+        }
+    }
+    void Update()
+    {
+        DecreaseBoost();
     }
 
     // Decreases the health of a player
