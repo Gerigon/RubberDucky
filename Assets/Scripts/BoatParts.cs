@@ -32,9 +32,9 @@ public enum Weapons
 public class BoatParts : MonoBehaviour {
 
 
-    private Cabin currentCabin;
-    private Hull currentHull;
-    private Weapons currentWeapon;
+    public Cabin currentCabin;
+    public Hull currentHull;
+    public Weapons currentWeapon;
 	// Use this for initialization
 	void Start ()
     {
@@ -58,6 +58,7 @@ public class BoatParts : MonoBehaviour {
             if (child.gameObject.name == newCabin.ToString())
             {
                 child.gameObject.SetActive(true);
+                currentCabin = newCabin;
             }
         }
     }
@@ -69,6 +70,7 @@ public class BoatParts : MonoBehaviour {
             if (child.gameObject.name == newHull.ToString())
             {
                 child.gameObject.SetActive(true);
+                currentHull = newHull;
             }
         }
     }
@@ -80,6 +82,7 @@ public class BoatParts : MonoBehaviour {
             if (child.gameObject.name == newWeapon.ToString())
             {
                 child.gameObject.SetActive(true);
+                currentWeapon = newWeapon;
             }
         }
     }

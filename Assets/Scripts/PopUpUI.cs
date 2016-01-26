@@ -15,7 +15,7 @@ public class PopUpUI : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        boatCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        boatCamera = Camera.main;
         thisCanvas = gameObject.GetComponent<Canvas>();
         thisCanvas.worldCamera = boatCamera;
 
