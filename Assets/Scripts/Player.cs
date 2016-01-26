@@ -48,30 +48,34 @@ public class Player : Actor
         myMovementController.Movement(movement.y,true);
         myMovementController.Rotation(movement.x);
 
-        /*
-        if (movement == Vector3.zero)
-        {
-        old stuff
-        }
-        */
+        
         if (boatParts.currentWeapon == Weapons.WaterPistol)
         {
+            if (Input.GetAxis("Fire1") > 0)
+            {
+                boatParts.currentWeaponGO.transform.GetChild(4).GetComponent<ParticleSystem>().enableEmission = true;
+            }
+            else
+            {
+                boatParts.currentWeaponGO.transform.GetChild(4).GetComponent<ParticleSystem>().enableEmission = false;
+            }
 
+            if (Input.GetAxis("Mouse Y") != 0)
+            {
+                mouseY = Input.GetAxis("Mouse Y");
+                boatParts.currentWeaponGO.transform.GetChild(4).GetComponent<ParticleSystem>().transform.Rotate(Vector3.left, mouseY);
+            }
         }
-        if (Input.GetAxis("Fire1") > 0 && (fireTime > fireRate))
+        if (boatParts.currentWeapon == Weapons.BathbombCannon)
         {
-            fireTime = 0;
-            FireCannonBall();
+            if (Input.GetAxis("Fire1") > 0 && (fireTime > fireRate))
+            {
+                fireTime = 0;
+                FireCannonBall();
+            }
+
+            
         }
-
-
-        //cannonHolder.transform.LookAt(crossHair.transform);
-
-        if (Input.GetAxis("Mouse X")!= 0)
-        {
-            cannonHolder.transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * aimSensivity, Space.World);
-        }
-
         if (Input.GetAxis("Mouse Y") != 0)
         {
             mouseY = Input.GetAxis("Mouse Y");
@@ -86,13 +90,22 @@ public class Player : Actor
             }
 
             boatCamera.offset = distance;
-            crossHair.transform.Translate(new Vector3(0,0, mouseY), Space.Self);
+            crossHair.transform.Translate(new Vector3(0, 0, mouseY), Space.Self);
+        }
+
+        if (Input.GetAxis("Mouse X")!= 0)
+        {
+            cannonHolder.transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * aimSensivity, Space.World);
         }
 
         if(Input.GetKey(KeyCode.LeftShift))
         {
-            rb.AddForce(Vector3.forward * 10f);
+            rb.AddRelativeForce(Vector3.back * 10f);
         }
+    }
+    void FireWaterPistol()
+    {
+
     }
     void FireCannonBall()
     {
@@ -119,7 +132,7 @@ public class Player : Actor
         {
             Debug.Log("pushing");
             Vector3 direction = (transform.position - other.transform.position).normalized;
-            rb.AddForce(direction * 10, ForceMode.VelocityChange);
+            rb.AddForce(direction * 5, ForceMode.VelocityChange);
         }
     }
 }

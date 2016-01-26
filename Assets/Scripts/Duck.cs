@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Duck : Actor {
+public class Duck : Actor
+{
 
     private EnemyAI myAIController;
 
@@ -20,7 +21,7 @@ public class Duck : Actor {
 
     public void setIsland(GameObject Island)
     {
-        
+
         myAIController = gameObject.AddComponent<EnemyAI>() as EnemyAI;
         myAIController._owner = this;
         myAIController.waypointContainer = Island;
@@ -45,4 +46,10 @@ public class Duck : Actor {
     {
     }
 
+    void OnParticleCollision(GameObject other)
+    {
+        ReceiveDamage(0.1f);
+        Vector3 direction =   (transform.position -other.transform.position).normalized;
+        rb.AddForce(direction * 1.5f, ForceMode.VelocityChange);
+    }
 }
