@@ -34,11 +34,23 @@ public class MovementController {
 
         if (_owner.name == "Boat")
         {
-            _owner.rb.velocity = new Vector3(Mathf.Clamp(_owner.rb.velocity.x, -35f, 35f), _owner.rb.velocity.y, Mathf.Clamp(_owner.rb.velocity.z, -35f, 35f));
-            
-            Vector3 localVel = _owner.transform.InverseTransformDirection(_owner.rb.velocity);
-            localVel.x *= 0.95f;
-            _owner.rb.velocity = _owner.transform.TransformDirection(localVel);
+            if (_owner.GetComponent<BoatParts>().currentHull == Hull.StandardHull)
+            {
+                _owner.rb.velocity = new Vector3(Mathf.Clamp(_owner.rb.velocity.x, -35f, 35f), _owner.rb.velocity.y, Mathf.Clamp(_owner.rb.velocity.z, -35f, 35f));
+
+                Vector3 localVel = _owner.transform.InverseTransformDirection(_owner.rb.velocity);
+                localVel.x *= 0.95f;
+                _owner.rb.velocity = _owner.transform.TransformDirection(localVel);
+            }
+            if (_owner.GetComponent<BoatParts>().currentHull == Hull.FastHull || _owner.GetComponent<BoatParts>().currentHull == Hull.SuperHull)
+            {
+                _owner.rb.velocity = new Vector3(Mathf.Clamp(_owner.rb.velocity.x, -45f, 45f), _owner.rb.velocity.y, Mathf.Clamp(_owner.rb.velocity.z, -45f, 45f));
+
+                Vector3 localVel = _owner.transform.InverseTransformDirection(_owner.rb.velocity);
+                localVel.x *= 0.98f;
+                _owner.rb.velocity = _owner.transform.TransformDirection(localVel);
+            }
+
 
             /*
             old stuff
@@ -55,35 +67,41 @@ public class MovementController {
             _owner.rb.velocity = _owner.transform.TransformDirection(localVel);
         }
     }
-    //movement of the player
-    public void Movement(float v)
+
+    //Rotation & movement of the player
+    public void Rotation(float h)
     {
-        Vector3 movement = new Vector3(0.0f, 0.0f, v);
-        _owner.transform.Translate(-movement * moveSpeed * Time.deltaTime,Space.Self);
+        if (_owner.GetComponent<BoatParts>().currentHull == Hull.FastHull || _owner.GetComponent<BoatParts>().currentHull == Hull.SuperHull)
+        {
+            h *= 1.2f;
+        }
+        if (_owner.GetComponent<BoatParts>().currentHull == Hull.SturdyHull)
+        {
+            h *= 0.8f;
+        }
+        Vector3 rotation = new Vector3(0.0f, h, 0.0f);
+        _owner.transform.Rotate(rotation * turnSpeed * Time.deltaTime);
     }
     public void Movement(float v, bool force)
     {
+        if (_owner.GetComponent<BoatParts>().currentHull == Hull.FastHull || _owner.GetComponent<BoatParts>().currentHull == Hull.SuperHull)
+        {
+            v *= 1.2f;
+        }
+        if (_owner.GetComponent<BoatParts>().currentHull == Hull.SturdyHull)
+        {
+            v *= 0.8f;
+        }
         Vector3 movement = new Vector3(0.0f, 0.0f, v * 3);
         _owner.rb.AddRelativeForce(-movement,ForceMode.Acceleration);
-        //_owner.transform.Translate(movement * moveSpeed * Time.deltaTime, Space.Self);
     }
-    public void Movement(Vector3 v)
-    {
-        Vector3 movement = v;
-        _owner.transform.Translate(movement * moveSpeed * Time.deltaTime,Space.World);
-        //_owner.transform.position += movement;
-    }
+    //enemy movement
     public void Movement(Vector3 v, bool force)
     {
         Vector3 movement = new Vector3(v.x, 0, v.z);
         _owner.rb.AddForce(movement * 3, ForceMode.Acceleration);
-        //_owner.transform.Translate(movement * moveSpeed * Time.deltaTime, Space.Self);
     }
 
 
-    public void Rotation(float h)
-    {
-        Vector3 rotation = new Vector3(0.0f, h, 0.0f);
-        _owner.transform.Rotate(rotation * turnSpeed * Time.deltaTime);
-    }
+    
 }

@@ -5,7 +5,7 @@ public class Player : Actor
 {
 
     public GameObject cannonHolder;
-    public GameObject cannonBall;
+    public GameObject[] cannonBall;
     public GameObject crossHair;
     public GameObject sea;
 
@@ -68,13 +68,22 @@ public class Player : Actor
         }
         if (boatParts.currentWeapon == Weapons.BathbombCannon)
         {
-            if (Input.GetAxis("Fire1") > 0 && (fireTime > fireRate))
+            if (Input.GetAxis("Fire1") > 0 && (fireTime > 1.2f))
             {
                 fireTime = 0;
-                FireCannonBall();
+                FireProjectile(cannonBall[0],30);
             }
 
             
+        }
+
+        if (boatParts.currentWeapon == Weapons.HarpoonCannon)
+        {
+            if (Input.GetAxis("Fire1") > 0 && (fireTime > fireRate))
+            {
+                fireTime = 0;
+                FireProjectile(cannonBall[1],15);
+            }
         }
         if (Input.GetAxis("Mouse Y") != 0)
         {
@@ -107,10 +116,10 @@ public class Player : Actor
     {
 
     }
-    void FireCannonBall()
+    void FireProjectile(GameObject projectile,float angle)
     {
-        GameObject cBall = Instantiate(cannonBall, cannon.transform.position + cannon.transform.localToWorldMatrix.MultiplyVector(transform.up), Quaternion.identity) as GameObject;
-        cBall.GetComponent<Rigidbody>().velocity = BallisticVel(crossHair.transform, 30);
+        GameObject cBall = Instantiate(projectile, cannon.transform.position + cannon.transform.localToWorldMatrix.MultiplyVector(transform.up), Quaternion.identity) as GameObject;
+        cBall.GetComponent<Rigidbody>().velocity = BallisticVel(crossHair.transform, angle);
         Destroy(cBall, 10);
     }
 
