@@ -35,8 +35,8 @@ public class LevelGeneration : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-	    
-	}
+        CheckIslands();
+    }
     
     void CheckIslands()
     {
@@ -44,16 +44,48 @@ public class LevelGeneration : MonoBehaviour {
         {
             if (Vector3.Distance(spawnedIslandList[i].transform.position,Player.transform.position) < 10)
             {
-                if (spawnedIslandList[i].GetComponent<IslandScript>().Ducks.Count == 0)
+                if (spawnedIslandList[i].GetComponent<IslandScript>().Ducks.Count == 0 && spawnedIslandList[i].GetComponent<IslandScript>().storedItem != null)
                 {
                     switch(spawnedIslandList[i].GetComponent<IslandScript>().storedItem.name)
                     {
-                        case "":
+                        case "Bathbomb Cannon":
+                            Player.GetComponent<BoatParts>().SwitchEquipment(Weapons.BathbombCannon);
                             break;
-                        case "d":
+                        case "Fishing Net":
+                            Player.GetComponent<BoatParts>().SwitchEquipment(Weapons.FishingNet);
+                            break;
+                        case "Figure Head":
+                            Player.GetComponent<BoatParts>().SwitchEquipment(Weapons.FigureHead);
+                            break;
+                        case "Harpoon Cannon":
+                            Player.GetComponent<BoatParts>().SwitchEquipment(Weapons.HarpoonCannon);
+                            break;
+                        case "Icebreaker":
+                            Player.GetComponent<BoatParts>().SwitchEquipment(Weapons.Icebreaker);
+                            break;
+                        case "Water Pistol":
+                            Player.GetComponent<BoatParts>().SwitchEquipment(Weapons.WaterPistol);
+                            break;
+                        case "Fast Hull":
+                            Player.GetComponent<BoatParts>().SwitchEquipment(Hull.FastHull);
+                            break;
+                        case "Sturdy Hull":
+                            Player.GetComponent<BoatParts>().SwitchEquipment(Hull.SturdyHull);
+                            break;
+                        case "Super Hull":
+                            Player.GetComponent<BoatParts>().SwitchEquipment(Hull.SuperHull);
+                            break;
+                        case "Mist Cabin":
+                            Player.GetComponent<BoatParts>().SwitchEquipment(Cabin.MistCabin);
+                            break;
+                        case "Nitro Cabin":
+                            Player.GetComponent<BoatParts>().SwitchEquipment(Cabin.NitroCabin);
+                            break;
+                        case "Super Cabin":
+                            Player.GetComponent<BoatParts>().SwitchEquipment(Cabin.SuperCabin);
                             break;
                     }
-                    //Player.GetComponent<BoatParts>().SwitchEquipment(spawnedIslandList[i].GetComponent<IslandScript>().storedItem.name);
+                    spawnedIslandList[i].GetComponent<IslandScript>().storedItem = null;
                 }
             }
         }

@@ -28,6 +28,19 @@ public class Duck : Actor {
 
     }
 
+    public IEnumerator DeathAnimation()
+    {
+        for (int i = 0; i < 180; i++)
+        {
+            transform.Rotate(Vector3.up, 4);
+            transform.Translate(Vector3.down / 70);
+            GetComponent<EnemyAI>().enabled = false;
+            yield return new WaitForEndOfFrame();
+        }
+        myAIController.waypointContainer.transform.parent.GetComponent<IslandScript>().Ducks.Remove(this.gameObject);
+        Destroy(this.gameObject);
+    }
+
     protected override void FixedUpdate()
     {
     }
