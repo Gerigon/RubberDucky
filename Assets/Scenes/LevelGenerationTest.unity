@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: .0469999984, g: .0430000015, b: .0350000001, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 455a20467a9254a42bdb67d203a9decd, type: 2}
   m_HaloStrength: .5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -689,6 +689,10 @@ MonoBehaviour:
   - {fileID: 175148, guid: 201e5516663d2d0419981dbd5998da68, type: 2}
   ducks:
   - {fileID: 128362, guid: a22e9ee022c420d4d8d69fec5e8334ee, type: 2}
+  - {fileID: 199402, guid: b5a39e3196e41064aa1517b7756e9f5f, type: 2}
+  - {fileID: 195192, guid: 85debc67e4f0e52469b399c19bab2275, type: 2}
+  - {fileID: 153352, guid: 5585c68467f321f44867531c53f1f8cf, type: 2}
+  - {fileID: 101016, guid: d7d01271a576bba4ebe1a726d068311d, type: 2}
   items: []
   TreasureBuoy:
   - {fileID: 160456, guid: a7a4e33fa53627b4dade2ed30604bc26, type: 2}
@@ -731,6 +735,7 @@ GameObject:
   - 4: {fileID: 443624880}
   - 198: {fileID: 443624879}
   - 199: {fileID: 443624878}
+  - 114: {fileID: 443624881}
   m_Layer: 0
   m_Name: WaterPistolParticleSystem
   m_TagString: Untagged
@@ -787,7 +792,7 @@ ParticleSystem:
   looping: 1
   prewarm: 0
   playOnAwake: 1
-  moveWithTransform: 0
+  moveWithTransform: 1
   InitialModule:
     enabled: 1
     startLifetime:
@@ -1839,6 +1844,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1315601454}
   m_RootOrder: 2
+--- !u!114 &443624881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 443624877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 307af028675de794da534186d61358ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  queueValue: 4002
 --- !u!1001 &449825542
 Prefab:
   m_ObjectHideFlags: 0
@@ -2690,7 +2707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &907417960
 Transform:
   m_ObjectHideFlags: 0
@@ -2714,7 +2731,7 @@ Transform:
   - {fileID: 1259955732}
   - {fileID: 1546645478}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &983943580
 GameObject:
   m_ObjectHideFlags: 0
@@ -4469,7 +4486,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 151080, guid: ffa5c6daa0f8edb4591ec44ef25f40b0, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ffa5c6daa0f8edb4591ec44ef25f40b0, type: 2}
@@ -4783,6 +4800,10 @@ Prefab:
     - target: {fileID: 117386, guid: 1120a28ea9e9af14299006ba9672db77, type: 2}
       propertyPath: m_Name
       value: BathbombCannon
+      objectReference: {fileID: 0}
+    - target: {fileID: 117386, guid: 1120a28ea9e9af14299006ba9672db77, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1120a28ea9e9af14299006ba9672db77, type: 2}

@@ -28,18 +28,19 @@ public class LevelGeneration : MonoBehaviour {
     public List<GameObject> spawnedIslandList;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
+        Cursor.visible = false;
         List<GameObject> spawnedIslandList = new List<GameObject>();
         SpawnIslands();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         CheckIslands();
     }
-    
+
     void CheckIslands()
     {
         for (int i = 0; i < spawnedIslandList.Count; i++)
@@ -50,29 +51,34 @@ public class LevelGeneration : MonoBehaviour {
                 {
                     //if (spawnedIslandList[i].GetComponent<IslandScript>().playerClose == false)
                     //{
-                        spawnedIslandList[i].GetComponent<IslandScript>().playerClose = true;
-                        popUpUI.LoadImageBoatPart(spawnedIslandList[i].GetComponent<IslandScript>().storedItem.name);
-                        popUpUI.EnableCanvas();
-                        if (Input.GetKeyDown(KeyCode.Y))
-                        {
-                            Debug.Log(spawnedIslandList[i].GetComponent<IslandScript>().storedItem.name);
-                            SpawnItems(spawnedIslandList[i].GetComponent<IslandScript>().storedItem.name);
-                            spawnedIslandList[i].GetComponent<IslandScript>().storedItem = null;
-                            popUpUI.DisableCanvas();
-                        }
-                        else if (Input.GetKeyDown(KeyCode.N))
-                        {
-                            popUpUI.DisableCanvas();
-                        }
+                    spawnedIslandList[i].GetComponent<IslandScript>().playerClose = true;
+                    popUpUI.LoadImageBoatPart(spawnedIslandList[i].GetComponent<IslandScript>().storedItem.name);
+                    popUpUI.EnableCanvas();
+                    //spawnedIslandList[i].GetComponent<IslandScript>().playerClose = true;
+                    if (Input.GetKeyDown(KeyCode.Y))
+                    {
+                        SpawnItems(spawnedIslandList[i].GetComponent<IslandScript>().storedItem.name);
+                        spawnedIslandList[i].GetComponent<IslandScript>().storedItem = null;
+                        popUpUI.DisableCanvas();
+                    }
+                    else if (Input.GetKeyDown(KeyCode.N))
+                    {
+                        popUpUI.DisableCanvas();
+                    }
                     //}
                 }
             }
-            //else
-            //{
-            //    spawnedIslandList[i].GetComponent<IslandScript>().playerClose = false;
-            //}
+            else if (Input.GetKeyDown(KeyCode.N))
+            {
+                popUpUI.DisableCanvas();
+            }
         }
     }
+    //}
+    //else
+    //{
+    //    spawnedIslandList[i].GetComponent<IslandScript>().playerClose = false;
+    //}
 
     private void SpawnItems(string itemName)
     {

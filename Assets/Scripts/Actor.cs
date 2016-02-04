@@ -24,7 +24,7 @@ public class Actor : MonoBehaviour {
     protected virtual void Update()
     {
         myMovementController.Update();
-        if (health <= 0 && this.name.Contains("duck"))
+        if (health <= 0 && (this.name.Contains("duck") || this.name.Contains("Duck")))
         {
             StartCoroutine(GetComponent<Duck>().DeathAnimation());
         }

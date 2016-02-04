@@ -103,7 +103,14 @@ public class Player : Actor
             }
 
             boatCamera.offset = distance;
-            crossHair.transform.Translate(new Vector3(0, 0, -mouseY), Space.Self);
+            if (GetComponent<BoatParts>().currentWeapon == Weapons.WaterPistol)
+            {
+                crossHair.transform.Translate(new Vector3(0, 0, mouseY), Space.Self);
+            }
+            else if (GetComponent<BoatParts>().currentWeapon == Weapons.HarpoonCannon || GetComponent<BoatParts>().currentWeapon == Weapons.BathbombCannon)
+            {
+                crossHair.transform.Translate(new Vector3(0, 0, -mouseY), Space.Self);
+            }
         }
 
         if (Input.GetAxis("Mouse X")!= 0)

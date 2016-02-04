@@ -130,7 +130,7 @@ GameObject:
   - 4: {fileID: 411982}
   - 114: {fileID: 11440504}
   m_Layer: 10
-  m_Name: Island
+  m_Name: island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

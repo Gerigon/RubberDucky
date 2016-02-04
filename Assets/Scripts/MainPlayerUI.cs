@@ -26,6 +26,11 @@ public class MainPlayerUI : MonoBehaviour {
     void Update()
     {
         DecreaseBoost();
+
+        if (health.Count < 1)
+        {
+            Application.LoadLevel(0);
+        }
     }
 
     // Decreases the health of a player

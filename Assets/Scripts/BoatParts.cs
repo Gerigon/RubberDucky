@@ -52,7 +52,6 @@ public class BoatParts : MonoBehaviour {
         currentCabinGO = GameObject.Find("StandardHull");
         currentHullGO = GameObject.Find("StandardCabin");
         currentWeaponGO = GameObject.Find("WaterPistol");
-        SwitchEquipment(Weapons.BathbombCannon);
     }
 	
 	// Update is called once per frame

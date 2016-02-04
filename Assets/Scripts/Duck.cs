@@ -48,7 +48,7 @@ public class Duck : Actor
 
     void OnParticleCollision(GameObject other)
     {
-        ReceiveDamage(0.1f);
+        ReceiveDamage(0.8f);
         Vector3 direction =   (transform.position -other.transform.position).normalized;
         rb.AddForce(direction * 1.5f, ForceMode.VelocityChange);
     }
